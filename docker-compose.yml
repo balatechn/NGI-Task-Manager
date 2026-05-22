@@ -58,6 +58,11 @@ services:
     networks:
       - app-network
       - coolify
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.wks7f426q5zfx1y16viagzie.rule=Host(`wks7f426q5zfx1y16viagzie.187.127.134.246.sslip.io`)"
+      - "traefik.http.routers.wks7f426q5zfx1y16viagzie.entrypoints=http"
+      - "traefik.http.services.wks7f426q5zfx1y16viagzie.loadbalancer.server.port=3000"
 
 volumes:
   postgres_data:
