@@ -6,7 +6,7 @@ COPY prisma ./prisma
 RUN npx prisma generate
 COPY tsconfig.json ./
 COPY src ./src
-RUN npx tsc
+RUN ./node_modules/.bin/tsc
 
 FROM node:20-alpine
 WORKDIR /app
