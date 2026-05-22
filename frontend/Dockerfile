@@ -19,6 +19,8 @@ ENV NODE_ENV=production
 RUN addgroup --system --gid 1001 nodejs && adduser --system --uid 1001 nextjs
 COPY --from=deps /app/node_modules ./node_modules
 COPY --from=builder /app/.next ./.next
+RUN test -f .next/prerender-manifest.json || \
+    echo '{"version":4,"routes":{},"dynamicRoutes":{},"notFoundRoutes":[],"preview":{"previewModeId":"","previewModeSigningKey":"","previewModeEncryptionKey":""}}' > .next/prerender-manifest.json
 COPY --from=builder /app/public ./public
 COPY package.json .
 USER nextjs
