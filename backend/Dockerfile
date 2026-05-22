@@ -1,16 +1,16 @@
 FROM node:20-alpine AS builder
 WORKDIR /app
 COPY package*.json ./
-RUN npm install
+RUN npm install --include=dev
 COPY prisma ./prisma
-RUN npx prisma generate
+RUN apk add --no-cache openssl && npx prisma generate
 COPY tsconfig.json ./
 COPY src ./src
 RUN ./node_modules/.bin/tsc
 
 FROM node:20-alpine
 WORKDIR /app
-RUN apk add --no-cache wget
+RUN apk add --no-cache wget openssl
 COPY package*.json ./
 RUN npm install --omit=dev
 COPY --from=builder /app/dist ./dist
