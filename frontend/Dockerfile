@@ -7,6 +7,7 @@ RUN npm install --legacy-peer-deps
 FROM node:20-alpine AS builder
 WORKDIR /app
 ENV NODE_ENV=development
+ENV BACKEND_URL=http://backend:4000
 ARG NEXT_PUBLIC_APP_NAME="NGI Task Manager"
 ENV NEXT_PUBLIC_APP_NAME=$NEXT_PUBLIC_APP_NAME
 COPY --from=deps /app/node_modules ./node_modules
